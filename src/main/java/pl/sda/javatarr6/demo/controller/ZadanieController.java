@@ -84,10 +84,10 @@ public class ZadanieController<ZadanieDto> {
         ZadanieEntity entity1 = zadanieRepository.getById(id);
         if (entity1.isUkonczone()) {
             System.out.println("Nie można bo zakoczone!");
-            return "redirect:/listzadanie";
+            return "redirect:listzadanie";
         }
         //model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
-        return "/zmienopis";
+        return "zmienopis";
     }
 
 
@@ -95,10 +95,10 @@ public class ZadanieController<ZadanieDto> {
     public String zmienOpis(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.demo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "/zmienopis";
+            return "zmienopis";
         }
         zadanieService.zmienpiszadanieEntity(idPrzek, zadanieDto.getOpis());
-        return "redirect:/listzadanie";
+        return "redirect:listzadanie";
     }
 }
 
