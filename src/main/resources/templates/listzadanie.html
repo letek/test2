@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Aplikacja TODO</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<!-- Footer -->
+<header class="py-5 bg-dark">
+    <div class="container">
+        <h4 class="m-3 text-center text-white">Aplikacja TODO</h4>
+    </div>
+    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>
+    <form th:action="@{/logout}" method="post">
+        <button  class="m-3 btn-danger" style="float:right" type="submit" value="Wyloguj">Wyloguj</button>
+    </form>
+    <!-- /.container -->
+</header>
+
+<div class="container mt-2">
+    <!--    <a href="addzadanie">Dodaj Zadanie</a>-->
+    <form action="addzadanie">
+        <button class="btn btn-danger" type="button" onclick="location.href='addzadanie';" value="Dodaj Zadanie">Dodaj Zadanie
+        </button>
+    </form>
+
+    <br>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Opis</th>
+            <th>Data utworzenia</th>
+            <th>Data zamknięcia</th>
+            <th>Wykonane</th>
+            <th>Akcja</th>
+            <!--            <th>Akcja</th>-->
+
+        </tr>
+
+        <th>&nbsp</th>
+        <tr th:each="zadania : ${zadania}">
+            <td th:text="${zadania.id}"/>
+            <td th:text="${zadania.opis}"/>
+            <td th:text="${zadania.dataUtworzenia}"/>
+            <td th:text="${zadania.dataZamkniecia}"/>
+            <!--            <td th:text="${zadania.ukonczone}"></td>-->
+            <td>
+            <span th:if="${zadania.ukonczone}">
+                <input type="checkbox" disabled="disabled" th:checked="${true}"/>
+            </span>
+                <span th:if="${!zadania.ukonczone}">
+                <input type="checkbox" disabled="disabled" th:checked="${false}"/>
+            </span>
+                <!--                <span th:if="${zadania.ukonczone}">-->
+                <!--                </span>-->
+                <span th:if="${!zadania.ukonczone}">
+                <a th:href="@{/delzadanie(id=${zadania.id})}" class="btn btn-danger">Zakończ</a>
+            </span>
+            </td>
+            <td>
+                <!--            <span th:if="${zadania.ukonczone}">-->
+                <!--            </span>-->
+                <span th:if="${!zadania.ukonczone}">
+                <a th:href="@{/zmienopis(id=${zadania.id})}" class="btn btn-danger">Zmień Opis</a>
+            </span>
+            </td>
+
+
+            <!--            <td><a th:href="@{/zmienopis/(id=${zadania.id})}" class="btn btn-danger">Zmień</a></td>-->
+            <!--            <td>-->
+            <!--            <span th:if="${zadania.ukonczone}">-->
+            <!--            </span>-->
+            <!--                <span th:if="${!zadania.ukonczone}">-->
+            <!--                <a th:href="@{/delzadanie/(id=${zadania.id})}" class="btn btn-danger">Zakończ</a>-->
+            <!--            </span>-->
+            <!--            </td>-->
+            <!--            <td>-->
+    </table>
+</div>
+<br>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; TARR2019 Java6 Tomasz Letki</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+</body>
+</html>

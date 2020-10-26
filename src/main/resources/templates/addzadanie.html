@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Aplikacja TODO</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-2">
+    <h1>Dodaj zadanie</h1>
+
+    <form role="form" th:object="${ZadanieEntity}" th:action="@{/addzadanie}" method="post">
+
+        <!--        <div>-->
+        <!--            <input type="text" name="ukonczone" id="ukonczone" placeholder="Ukonczone" />-->
+        <!--        </div>-->
+
+        <div>
+            <input type="text" name="opis" id="opis" placeholder="Opis zadania"/>
+            <!--        <input type="date" name="datautworzenia" id="datautworzenia" placeholder="Data utworzenia"/>-->
+            <!--        <input type="date" name="datazamkniecia" id="datazamkniecia" placeholder="Data zamkniecia"/>-->
+            <!--        <input type="text" name="ukonczone" id="ukonczone" placeholder="ukonczone"/>-->
+        </div>
+        <br>
+        <button class="btn btn-danger" type="submit" value="Zapisz">Zapisz</button>
+<!--        <input type="submit" value="Zapisz"/>        -->
+        <!--    <a href="listzadanie">Anuluj</a>-->
+        <form action="listzadanie">
+            <button class="btn btn-danger" type="button" onclick="location.href='listzadanie';" value="Anuluj" >Anuluj</button>
+        </form>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Aplikacja TODO Logowanie</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<!-- Footer -->
+<header class="py-5 bg-dark">
+    <div class="container">
+        <h4 class="m-3 text-center text-white" >Aplikacja TODO</h4>
+    </div>
+    <!-- /.container -->
+</header>
+<div class="container mt-2">
+    <div th:if="${param.error}">
+        Niewłaściwy użytkownik lub hasło.
+    </div>
+    <div th:if="${param.logout}">
+        Zostałeś wylogowany.
+    </div>
+    <div class="container-fluid">
+        <div class="col-sm-12 text-center">
+            <form th:action="@{/login}" method="post">
+                <div><label class="a"> Użytkownik:&nbsp&nbsp <input type="text" name="username"/> </label>
+                </div>
+                <div><label class="a"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspHasło:&nbsp <input type="password" name="password"/> </label>
+                </div>
+                <div>
+                    <button class="btn btn-danger" type="submit" value="Zaloguj">Zaloguj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; TARR2019 Java6 Tomasz Letki</p>
+    </div>
+    <!-- /.container -->
+</footer>
+</body>
+</html>
