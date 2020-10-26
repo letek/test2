@@ -84,7 +84,7 @@ public class ZadanieController<ZadanieDto> {
         ZadanieEntity entity1 = zadanieRepository.getById(id);
         if (entity1.isUkonczone()) {
             System.out.println("Nie można bo zakoczone!");
-            return "redirect:listzadanie";
+            return "redirect:/listzadanie";
         }
         //model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
         return "/zmienopis";
@@ -98,7 +98,7 @@ public class ZadanieController<ZadanieDto> {
             return "/zmienopis";
         }
         zadanieService.zmienpiszadanieEntity(idPrzek, zadanieDto.getOpis());
-        return "redirect:listzadanie";
+        return "redirect:/listzadanie";
     }
 }
 
