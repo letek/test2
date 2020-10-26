@@ -86,7 +86,7 @@ public class ZadanieController<ZadanieDto> {
             System.out.println("Nie można bo zakoczone!");
             return "redirect:listzadanie";
         }
-        model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
+        //model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
         return "zmienopis";
     }
 
