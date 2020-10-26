@@ -87,7 +87,7 @@ public class ZadanieController<ZadanieDto> {
             return "redirect:listzadanie";
         }
         //model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
-        return "zmienopis";
+        return "/zmienopis";
     }
 
 
@@ -95,7 +95,7 @@ public class ZadanieController<ZadanieDto> {
     public String zmienOpis(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.demo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "zmienopis";
+            return "/zmienopis";
         }
         zadanieService.zmienpiszadanieEntity(idPrzek, zadanieDto.getOpis());
         return "redirect:listzadanie";
