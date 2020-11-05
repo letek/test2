@@ -28,14 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider);
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -45,10 +42,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/sign_up").permitAll()
                 //.antMatchers("/admin_panel").hasAuthority("ADMIN")
-                .antMatchers("/admin_panel").permitAll()
+              //  .antMatchers("/admin_panel").permitAll()
                 .antMatchers("/user_panel").permitAll()
+              //  .antMatchers("/h2-console/**").permitAll()
 //                .antMatchers("/admin_panel").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
+               // .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -62,7 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("cookies");
 
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
