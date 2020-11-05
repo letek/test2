@@ -1,21 +1,30 @@
 package pl.sda.javatarr6.demo.mapper;
 
-//import pl.sda.javatarr6.demo.dto.ItemDto;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.Mapping;
 import pl.sda.javatarr6.demo.dto.ZadanieDto;
+import pl.sda.javatarr6.demo.entity.User;
 import pl.sda.javatarr6.demo.entity.ZadanieEntity;
+import pl.sda.javatarr6.demo.repository.UserRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 
 
 public class ZadaniaMapper {
 
     public static final String DATE_FORMAT = "dd-MM-yyyy";
+
+    @Autowired
+    private UserRepository userRepository;
+
+
 
     public static List<ZadanieDto> mapZadanieEntitiesToDto(Iterable<ZadanieEntity> entities) {
 
@@ -51,6 +60,8 @@ public class ZadaniaMapper {
         return dto;
     }
 
+
+
     //przy dodawaniu
     public static ZadanieEntity mapDtoToZadanieEntity(ZadanieDto dto) throws ParseException {
 
@@ -59,6 +70,20 @@ public class ZadaniaMapper {
         entity.setOpis(dto.getOpis());
         entity.setDataUtworzenia(new Date());
         entity.setUkonczone(dto.isUkonczone());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+//
+//********//mam problem z wyszukaniem obiektu klasy User w tej metodzie - bo jest ona statyczna,  userRepository nie jest statyczne
+//        linijka poniżej robi błąd
+
+//        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+//        User aaa = new User(usernameOptional.get().getIdUser());
+
+
+        //problem z wyszukaniem ,(jak metoda wyżej dajUser), a potem zapisaniem obiektu klasy user do encji Zadanie Entity jako klucza obcego
+        //entity.setIdUser(aaa);
         return entity;
     }
 }

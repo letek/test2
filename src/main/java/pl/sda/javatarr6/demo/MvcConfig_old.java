@@ -8,12 +8,11 @@
 //public class MvcConfig implements WebMvcConfigurer {
 //
 //	public void addViewControllers(ViewControllerRegistry registry) {
-//		//registry.addViewController("/main").setViewName("main");
-//		registry.addViewController("/").setViewName("forward:/listzadanie");
-//		//registry.addViewController("/listzadanie").setViewName("listzadanie");
-//		//registry.addViewController("/addzadanie").setViewName("addzadanie");
-//		registry.addViewController("/login").setViewName("loginOld");
-//
+//		registry.addViewController("/home").setViewName("home");
+//		registry.addViewController("/").setViewName("home");
+//		registry.addViewController("/hello").setViewName("hello");
+//		registry.addViewController("/login").setViewName("login");
+//		registry.addViewController("/test").setViewName("test");
 //	}
 //
 //}

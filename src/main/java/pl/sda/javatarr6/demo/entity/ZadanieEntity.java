@@ -1,6 +1,7 @@
 package pl.sda.javatarr6.demo.entity;
 
 import javax.persistence.*;
+//import javax.validation.constraints.NotBlank;
 
 import java.util.Date;
 
@@ -14,20 +15,32 @@ public class ZadanieEntity {
     @GeneratedValue(strategy = IDENTITY)
     private long id;
 
-    @Column(nullable = false)
-    //@NotBlank(message = "Name is mandatory")
+    @Column(nullable = false,length = 255)
+//    @NotBlank(message = "Nazwa zadanie jest wymagana!")
     private String opis;
 
     @Temporal(TemporalType.DATE)
-    private Date dataUtworzenia;
+      private Date dataUtworzenia;
 
     @Temporal(TemporalType.DATE)
     private Date dataZamkniecia;
 
     private boolean ukonczone;
 
+    @ManyToOne
+    private User idUser;
+
+
     //Gettery Settery
 
+
+    public User getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(User idUser) {
+        this.idUser = idUser;
+    }
 
     public long getId() {
         return id;
@@ -72,6 +85,15 @@ public class ZadanieEntity {
     //Konstruktory
 
 
+    public ZadanieEntity(String opis, Date dataUtworzenia, Date dataZamkniecia, boolean ukonczone, User idUser) {
+        this.id = id;
+        this.opis = opis;
+        this.dataUtworzenia = dataUtworzenia;
+        this.dataZamkniecia = dataZamkniecia;
+        this.ukonczone = ukonczone;
+        this.idUser = idUser;
+    }
+
     public ZadanieEntity(String opis, Date dataUtworzenia, Date dataZamkniecia, boolean ukonczone) {
         //this.id = id;
         this.opis = opis;
@@ -80,12 +102,16 @@ public class ZadanieEntity {
         this.ukonczone = ukonczone;
     }
 
-//    public ZadanieEntity(String opis) {
-//
-//        this.opis = opis;
-//    }
-
     public ZadanieEntity() {
+    }
+
+    public ZadanieEntity(User idUser) {
+        this.idUser = idUser;
+    }
+
+    public ZadanieEntity(long id, User idUser) {
+        this.id = id;
+        this.idUser = idUser;
     }
 
     public ZadanieEntity(long id) {

@@ -1,16 +1,17 @@
-package pl.sda.javatarr6.demo.service;
+package pl.sda.javatarr6.demo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import pl.sda.javatarr6.demo.dto.ZadanieDto;
+import pl.sda.javatarr6.demo.entity.User;
 import pl.sda.javatarr6.demo.entity.ZadanieEntity;
 import pl.sda.javatarr6.demo.mapper.ZadaniaMapper;
 import pl.sda.javatarr6.demo.repository.ZadanieRepository;
+
 
 @Service
 public class ZadanieService {
@@ -26,12 +27,29 @@ public class ZadanieService {
         return dtos;
     }
 
+    public List<ZadanieDto> getAllByIdUser(User id) {
+
+        Iterable<ZadanieEntity> entities = zadanieRepository.getAllByIdUser(id);
+        List<ZadanieDto> dtos = ZadaniaMapper.mapZadanieEntitiesToDto(entities);
+        return dtos;
+    }
+
+
 //    public ZadanieDto getZadanieById(Long id) {
 //
 //        ZadanieEntity entity = zadanieRepository.getById(id);
 //        ZadanieDto dto = ZadaniaMapper.mapZadanieEntitiesToDto(entity);
 //
 //        return dto;
+//    }
+
+//    public List<ZadanieDto> getZadaniaById(Long id) {
+//        //long i =1;
+//        Iterable<ZadanieEntity> entities = zadanieRepository.;
+//
+//        List<ZadanieDto> dtos = ZadaniaMapper.mapZadanieEntitiesToDto(entities);
+//
+//        return dtos;
 //    }
 
 
@@ -70,10 +88,10 @@ public class ZadanieService {
             if (!entity.isUkonczone()) {
                 entity.setOpis(opis);
                 zadanieRepository.save(entity);
-            }
-            else {
+            } else {
 
-                System.out.println("jjjjjjj");}
+                //    System.out.println("jjjjjjj");
+            }
 
         } else System.out.println("Nie podano ID");
 

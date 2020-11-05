@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Sign up</title>
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -14,45 +14,34 @@
     </div>
     <!--    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>-->
     <h4 class="m-3 text-right text-white">Nie zalogowany</h4>
-
     <!--    <form th:action="@{/logout}" method="post">-->
     <!--        <button  class="m-3 btn-danger" style="float:right" type="submit" value="Wyloguj">Wyloguj</button>-->
     <!--    </form>-->
     <!-- /.container -->
     <!--    <div th:insert="menu.html :: div"></div>-->
 <!--    <div align="right">-->
-<!--        <a class="m-3 text-right text-white" href="/sign_up">Zarejestruj się</a>-->
+<!--        <a class="m-3 text-right text-white" href="/login">Zaloguj się</a>-->
 <!--    </div>-->
     <div align="right">>
-        <button class="btn btn-danger" type="submit" onclick="location.href='sign_up'" value="Zarejestruj się">Zarejestruj się</button>
+        <button class="btn btn-danger" type="submit" onclick="location.href='login'" value="Zaloguj się">Zaloguj się</button>
     </div>
 </header>
 <div class="container-fluid">
     <div class="col-sm-12 text-center">
-        <form class="login-form" action="/login" method='POST'>
-            <h1 class="login-element">Zaloguj się</h1>
+        <form class="login-form" action="/sign_up" method='POST'>
+            <h1 class="login-element">Dodaj użytkownika</h1>
             <div class="login-element">Adres email:</div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-<!--            <input class="login-element" type='text' name="username" value=''>-->
-<!--            <div class="login-element">Adres email:</div>-->
-            <input class="login-element" type='text' name="foo" value=''>
+            <input class="login-element" type='text' name="username" value=''>
             <div class="login-element">Hasło:</div>
-            <input class="login-element" type='password' name="bar" value=''>
-
-<!--            <input class="login-element" name="submit" type="submit" value="Zaloguj">-->
-
-            <!--    <div class="">-->
-            <!--        <button class="m-3 btn-danger" type="submit" value="Zaloguj">Zaloguj</button>-->
-            <!--    </div>-->
+            <input class="login-element" type='password' name="password" value=''>
+            <div class="login-element">Nazwa do wyświetlania:</div>
+            <input class="login-element" type='text' name="text" value=''>
+<!--            <input class="login-element" name="submit" type="submit" value="Dodaj">-->
             <div>
-                <button class="btn btn-danger" type="submit" value="Zaloguj">Zaloguj</button>
+                <button class="btn btn-danger" type="submit" value="Zaloguj">Dodaj</button>
             </div>
 
-            <!--    <form action="addzadanie">-->
-            <!--        <button class="btn btn-danger" type="button" onclick="location.href='addzadanie';" value="Dodaj Zadanie">Dodaj Zadanie-->
-            <!--        </button>-->
-            <!--    </form>    -->
-            <!--    <a class="login-element" href="/sign_up">Nie masz konta? Zarejestruj się tutaj</a>-->
         </form>
     </div>
 </div>

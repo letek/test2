@@ -7,9 +7,22 @@ public class ZadanieDto {
     private String dataUtworzenia;
     private String dataZamkniecia;
     private boolean ukonczone;
+    private Long idUser;
+
 
 
     //kreatory
+
+
+    public ZadanieDto(long id, Long idUser) {
+        this.id = id;
+        this.idUser = idUser;
+    }
+
+    public ZadanieDto(Long idUser) {
+        this.idUser = idUser;
+    }
+
     public ZadanieDto() {
     }
 
@@ -39,6 +52,14 @@ public class ZadanieDto {
 
     //gettery settery
 
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
 
     public long getId() {
         return id;
