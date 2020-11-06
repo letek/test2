@@ -32,9 +32,9 @@
             <h1 class="login-element">Dodaj użytkownika</h1>
             <div class="login-element">Adres email:</div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <input class="login-element" type='text' name="username" value=''>
+            <input class="login-element" type='email' name="username" value=''>
             <div class="login-element">Hasło:</div>
-            <input class="login-element" type='password' name="password" value=''>
+            <input class="login-element" type='password' name="password" th:maxlength="30" value=''>
             <div class="login-element">Nazwa do wyświetlania:</div>
             <input class="login-element" type='text' name="text" value=''>
 <!--            <input class="login-element" name="submit" type="submit" value="Dodaj">-->

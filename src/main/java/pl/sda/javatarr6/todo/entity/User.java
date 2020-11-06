@@ -1,13 +1,12 @@
-package pl.sda.javatarr6.demo.entity;
+package pl.sda.javatarr6.todo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-//import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class User implements UserDetails {
@@ -20,17 +19,16 @@ public class User implements UserDetails {
     private List<ZadanieEntity> zadanieEntities;
 
     @Column(nullable = false,unique=true,length = 50)
-//    @NotBlank(message = "Nazwa uzytkownika jest wymagana!")
+    @NotBlank(message = "Nazwa uzytkownika jest wymagana!")
+
     private String username; //login, adres email
 
     @Column(nullable = false)
-//    @NotBlank(message = "Hasło jest wymagane!")
+    @NotBlank(message = "Hasło jest wymagane!")
     private String password;
 
     @Column(length = 50)
     private String text;
-
-    //private List<String> roles;
 
     public User() {
     }

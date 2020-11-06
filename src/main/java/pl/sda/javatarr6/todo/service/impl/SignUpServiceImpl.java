@@ -1,4 +1,4 @@
-package pl.sda.javatarr6.demo.service.impl;
+package pl.sda.javatarr6.todo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -6,9 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import pl.sda.javatarr6.demo.entity.User;
-import pl.sda.javatarr6.demo.repository.UserRepository;
-import pl.sda.javatarr6.demo.service.SignUpService;
+import pl.sda.javatarr6.todo.entity.User;
+import pl.sda.javatarr6.todo.repository.UserRepository;
+import pl.sda.javatarr6.todo.service.SignUpService;
 //import pl.sda.javatarr6.demo.component.CustomDaoAuthenticationProvider;
 
 import java.util.Optional;

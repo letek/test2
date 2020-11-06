@@ -1,10 +1,10 @@
-package pl.sda.javatarr6.demo.controller;
+package pl.sda.javatarr6.todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import pl.sda.javatarr6.demo.service.impl.ZadanieService;
+import pl.sda.javatarr6.todo.service.ZadanieService;
 
 @RestController
 public class ZadanieRESTController {

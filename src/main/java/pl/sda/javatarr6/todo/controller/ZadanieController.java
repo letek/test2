@@ -1,45 +1,30 @@
-package pl.sda.javatarr6.demo.controller;
+package pl.sda.javatarr6.todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import pl.sda.javatarr6.demo.component.CustomDaoAuthenticationProvider;
-import pl.sda.javatarr6.demo.entity.User;
-import pl.sda.javatarr6.demo.entity.ZadanieEntity;
-import pl.sda.javatarr6.demo.mapper.ZadaniaMapper;
-import pl.sda.javatarr6.demo.repository.UserRepository;
-import pl.sda.javatarr6.demo.service.impl.ZadanieService;
-import pl.sda.javatarr6.demo.repository.ZadanieRepository;
-
-import javax.servlet.http.HttpServletRequest;
-//import org.springframework.security.core.userdetails.UserDetails;
-
+import pl.sda.javatarr6.todo.entity.User;
+import pl.sda.javatarr6.todo.entity.ZadanieEntity;
+import pl.sda.javatarr6.todo.mapper.ZadaniaMapper;
+import pl.sda.javatarr6.todo.repository.UserRepository;
+import pl.sda.javatarr6.todo.service.ZadanieService;
+import pl.sda.javatarr6.todo.repository.ZadanieRepository;
 
 @Controller
 public class ZadanieController<ZadanieDto> {
+
     Long idPrzek;
-
-    //@Autowired
-//    private Authentication authentication;
-
-
-//    @Autowired
-//    private UserDetails userDetails;
 
     @Autowired
     private ZadanieService zadanieService;
@@ -70,7 +55,7 @@ public class ZadanieController<ZadanieDto> {
 
     public String main(Model model) {
 
-        List<pl.sda.javatarr6.demo.dto.ZadanieDto> zadania = zadanieService.getAll();
+        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAll();
         long z = 1;
         //List<pl.sda.javatarr6.demo.dto.ZadanieDto> zadania = zadanieService.getZadaniaById(z);
         model.addAttribute("zadania", zadania);
@@ -85,11 +70,28 @@ public class ZadanieController<ZadanieDto> {
         String currentPrincipalName = authentication.getName();
         Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
         //User aaa = new User(usernameOptional.get().getIdUser());
-        List<pl.sda.javatarr6.demo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
+
+        //   List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
+        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllCompletedByIdUser(false, new User(usernameOptional.get().getIdUser()));
+        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadaniaZak = zadanieService.getAllCompletedByIdUser(true, new User(usernameOptional.get().getIdUser()));
         model.addAttribute("zadania", zadania);
+        model.addAttribute("zadaniaZak", zadaniaZak);
         return "listzadanie";
     }
+    public String listzadanie_old(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+        //User aaa = new User(usernameOptional.get().getIdUser());
+
+        //   List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
+        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllCompletedByIdUser(false, new User(usernameOptional.get().getIdUser()));
+        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadaniaZak = zadanieService.getAllCompletedByIdUser(true, new User(usernameOptional.get().getIdUser()));
+        model.addAttribute("zadania", zadania);
+        model.addAttribute("zadaniaZak", zadaniaZak);
+        return "listzadanie_old";
+    }
 //    @RequestMapping(value = "/zadanieList", method = RequestMethod.GET)
 //    @ResponseBody
 //    public String zadanieList(Model model) {
@@ -107,13 +109,23 @@ public class ZadanieController<ZadanieDto> {
     }
 
     @RequestMapping(value = "/addzadanie", method = RequestMethod.POST)
-    public String createZadanie(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.demo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
+    public String createZadanie(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.todo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "addzadanie/{id}";
         }
         //  zadanieDto.setOpis();
+        System.out.println();
+
+
         zadanieDto.setDataUtworzenia(new SimpleDateFormat(ZadaniaMapper.DATE_FORMAT).format(new Date()));
         zadanieDto.setUkonczone(new Boolean(false));
+                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+        User aaa = new User(usernameOptional.get().getIdUser());
+
+        zadanieDto.setIdUser(aaa);
         zadanieService.save(zadanieDto);
         return "redirect:listzadanie";
     }
@@ -135,11 +147,12 @@ public class ZadanieController<ZadanieDto> {
 
 
     @RequestMapping(value = "/zmienopis", method = RequestMethod.POST)
-    public String zmienOpis(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.demo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
+    public String zmienOpis(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.todo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "zmienopis";
         }
+
         zadanieService.zmienpiszadanieEntity(idPrzek, zadanieDto.getOpis());
         return "redirect:listzadanie";
     }

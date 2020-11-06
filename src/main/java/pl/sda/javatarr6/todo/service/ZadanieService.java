@@ -1,4 +1,4 @@
-package pl.sda.javatarr6.demo.service.impl;
+package pl.sda.javatarr6.todo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.util.*;
 
-import pl.sda.javatarr6.demo.dto.ZadanieDto;
-import pl.sda.javatarr6.demo.entity.User;
-import pl.sda.javatarr6.demo.entity.ZadanieEntity;
-import pl.sda.javatarr6.demo.mapper.ZadaniaMapper;
-import pl.sda.javatarr6.demo.repository.ZadanieRepository;
+import pl.sda.javatarr6.todo.dto.ZadanieDto;
+import pl.sda.javatarr6.todo.entity.User;
+import pl.sda.javatarr6.todo.entity.ZadanieEntity;
+import pl.sda.javatarr6.todo.mapper.ZadaniaMapper;
+import pl.sda.javatarr6.todo.repository.ZadanieRepository;
 
 
 @Service
-public class ZadanieService {
+public class ZadanieService  {
 
     @Autowired
     private ZadanieRepository zadanieRepository;
@@ -35,20 +35,26 @@ public class ZadanieService {
     }
 
 
-//    public ZadanieDto getZadanieById(Long id) {
-//
-//        ZadanieEntity entity = zadanieRepository.getById(id);
-//        ZadanieDto dto = ZadaniaMapper.mapZadanieEntitiesToDto(entity);
-//
-//        return dto;
+    public List<ZadanieDto> getAllCompletedByIdUser(boolean ukonczone, User id) {
+
+        System.out.println(ukonczone);
+        System.out.println(id);
+
+        Iterable<ZadanieEntity> entities = zadanieRepository.getZadanieEntitiesByUkonczoneIsAndIdUser(ukonczone,id);
+        List<ZadanieDto> dtos = ZadaniaMapper.mapZadanieEntitiesToDto(entities);
+        return dtos;
+    }
+
+//    @Override
+//    public List<Todo> getAllCompleted() {
+//        return todoRepository.getAllByCompletedAndUserId(true, getCurrentUser().getId());
 //    }
 
-//    public List<ZadanieDto> getZadaniaById(Long id) {
-//        //long i =1;
-//        Iterable<ZadanieEntity> entities = zadanieRepository.;
+
+//    public List<ZadanieDto> getAllByIdUser(User id) {
 //
+//        Iterable<ZadanieEntity> entities = zadanieRepository.getAllByIdUser(id);
 //        List<ZadanieDto> dtos = ZadaniaMapper.mapZadanieEntitiesToDto(entities);
-//
 //        return dtos;
 //    }
 
@@ -70,11 +76,9 @@ public class ZadanieService {
 
             ZadanieEntity entity = zadanieRepository.getById(id);
 
-//            if (entity != null) {
             entity.setUkonczone(true);
             entity.setDataZamkniecia(new Date());
             zadanieRepository.save(entity);
-            //          }
 
         } else System.out.println("Nie podano ID");
 
@@ -88,9 +92,6 @@ public class ZadanieService {
             if (!entity.isUkonczone()) {
                 entity.setOpis(opis);
                 zadanieRepository.save(entity);
-            } else {
-
-                //    System.out.println("jjjjjjj");
             }
 
         } else System.out.println("Nie podano ID");

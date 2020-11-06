@@ -1,4 +1,6 @@
-package pl.sda.javatarr6.demo.dto;
+package pl.sda.javatarr6.todo.dto;
+
+import pl.sda.javatarr6.todo.entity.User;
 
 public class ZadanieDto {
 
@@ -7,19 +9,16 @@ public class ZadanieDto {
     private String dataUtworzenia;
     private String dataZamkniecia;
     private boolean ukonczone;
-    private Long idUser;
-
-
+    private User idUser;
 
     //kreatory
 
-
-    public ZadanieDto(long id, Long idUser) {
+    public ZadanieDto(long id, User idUser) {
         this.id = id;
         this.idUser = idUser;
     }
 
-    public ZadanieDto(Long idUser) {
+    public ZadanieDto(User idUser) {
         this.idUser = idUser;
     }
 
@@ -29,7 +28,7 @@ public class ZadanieDto {
     public ZadanieDto(long id, String opis) {
         this.id = id;
         this.opis = opis;
-        System.out.println("sout z Zadanie DTO");
+        //System.out.println("sout z Zadanie DTO");
     }
 
     //public ZadanieDto(long id, String opis, String dataUtworzenia, String dataZamkniecia, boolean ukonczone) {
@@ -52,16 +51,15 @@ public class ZadanieDto {
 
     //gettery settery
 
-
-    public Long getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -1,4 +1,4 @@
-package pl.sda.javatarr6.demo.component;
+package pl.sda.javatarr6.todo.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

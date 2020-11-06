@@ -1,4 +1,4 @@
-package pl.sda.javatarr6.demo.controller;
+package pl.sda.javatarr6.todo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import pl.sda.javatarr6.demo.entity.User;
-import pl.sda.javatarr6.demo.service.SignUpService;
+import pl.sda.javatarr6.todo.entity.User;
+import pl.sda.javatarr6.todo.service.SignUpService;
 
 
 

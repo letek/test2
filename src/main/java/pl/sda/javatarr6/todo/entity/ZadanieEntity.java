@@ -1,8 +1,7 @@
-package pl.sda.javatarr6.demo.entity;
+package pl.sda.javatarr6.todo.entity;
 
 import javax.persistence.*;
-//import javax.validation.constraints.NotBlank;
-
+import javax.validation.constraints.*;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -16,7 +15,7 @@ public class ZadanieEntity {
     private long id;
 
     @Column(nullable = false,length = 255)
-//    @NotBlank(message = "Nazwa zadanie jest wymagana!")
+    @NotBlank(message = "Nazwa zadaniq jest wymagana!")
     private String opis;
 
     @Temporal(TemporalType.DATE)
@@ -32,7 +31,6 @@ public class ZadanieEntity {
 
 
     //Gettery Settery
-
 
     public User getIdUser() {
         return idUser;

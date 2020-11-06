@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<head>
+    <title>Admin panel</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/menu.css">
+</head>
+
+<body>
+<!-- Header -->
+<header class="py-5 bg-dark">
+    <div class="container">
+        <h4 class="m-3 text-center text-white">Aplikacja TODO</h4>
+    </div>
+    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>
+    <!--    <form th:action="@{/logout}" method="post">-->
+    <!--        <button  class="m-3 btn-danger" style="float:right" type="submit" value="Wyloguj">Wyloguj</button>-->
+    <!--    </form>-->
+    <!-- /.container -->
+    <div th:insert="menu.html :: div"></div>
+</header>
+<!--<div th:insert="menu.html :: div"></div>-->
+<h1>Admin Panel</h1>
+</body>
+
+
+</html>

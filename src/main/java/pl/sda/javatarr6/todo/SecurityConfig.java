@@ -1,4 +1,4 @@
-package pl.sda.javatarr6.demo;
+package pl.sda.javatarr6.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,11 +8,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import pl.sda.javatarr6.demo.component.CustomDaoAuthenticationProvider;
-import pl.sda.javatarr6.demo.service.impl.JpaUserDetailsService;
+import pl.sda.javatarr6.todo.component.CustomDaoAuthenticationProvider;
+import pl.sda.javatarr6.todo.service.JpaUserDetailsService;
 
 @Configuration
 @EnableWebSecurity(debug=false)
@@ -28,11 +27,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
         auth.authenticationProvider(authenticationProvider);
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,12 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/sign_up").permitAll()
                 //.antMatchers("/admin_panel").hasAuthority("ADMIN")
-              //  .antMatchers("/admin_panel").permitAll()
+                .antMatchers("/admin_panel").permitAll()
                 .antMatchers("/user_panel").permitAll()
-              //  .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/listzadanie_old").permitAll()
 //                .antMatchers("/admin_panel").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
-               // .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -60,7 +61,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .deleteCookies("cookies");
 
+
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

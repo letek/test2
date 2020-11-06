@@ -1,5 +1,4 @@
-//package pl.strefakursow.springadvanced.service.impl;
-package pl.sda.javatarr6.demo.service.impl;
+package pl.sda.javatarr6.todo.service;
 
 import java.util.Optional;
 
@@ -9,11 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import pl.sda.javatarr6.demo.entity.User;
-import pl.sda.javatarr6.demo.repository.UserRepository;
-
-//import pl.strefakursow.springadvanced.entity.User;
-//import pl.strefakursow.springadvanced.repository.UserRepository;
+import pl.sda.javatarr6.todo.entity.User;
+import pl.sda.javatarr6.todo.repository.UserRepository;
 
 
 @Service
@@ -32,7 +28,7 @@ public class JpaUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> usernameOptional = userRepository.findByUsername(username);
         if(!usernameOptional.isPresent()) {
-            throw new UsernameNotFoundException("No user found with username: " + username);
+            throw new UsernameNotFoundException("Nie znaleziono użytkownika: " + username);
         }
         User user = usernameOptional.get();
 //        System.out.println("========================================================================");
