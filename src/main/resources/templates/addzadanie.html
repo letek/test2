@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Aplikacja do zarządzania zadaniami, ToDo application">
+    <meta name="author" content="Tomasz Letki">
     <title>Aplikacja TODO</title>
+
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/menu.css">
+    <div th:insert="i_css.html :: div"></div>
 </head>
 <body>
 <!-- Header -->
-<header class="py-5 bg-dark">
-    <div class="container">
-        <h4 class="m-3 text-center text-white">Aplikacja TODO</h4>
-    </div>
-    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>
-
-    <div th:insert="menu.html :: div"></div>
-</header>
+<div th:insert="i_header.html :: div"></div>
 <div class="container mt-2">
     <h1>Dodaj zadanie</h1>
 
@@ -47,12 +40,6 @@
     </form>
 </div>
 <!-- Footer -->
-<br><br>
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; TARR2019 Java6 Tomasz Letki</p>
-    </div>
-    <!-- /.container -->
-</footer>
+<div th:insert="i_footer.html :: div"></div>
 </body>
 </html>

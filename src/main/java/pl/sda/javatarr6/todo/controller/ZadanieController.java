@@ -58,13 +58,18 @@ public class ZadanieController<ZadanieDto> {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
+
         Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+
+        String userTexta = usernameOptional.get().getText();
 
         //   List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
         List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllCompletedByIdUser(false, new User(usernameOptional.get().getIdUser()));
         List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadaniaZak = zadanieService.getAllCompletedByIdUser(true, new User(usernameOptional.get().getIdUser()));
         model.addAttribute("zadania", zadania);
         model.addAttribute("zadaniaZak", zadaniaZak);
+        model.addAttribute("userTexta", userTexta);
+
         return "listzadanie";
     }
 
@@ -82,7 +87,7 @@ public class ZadanieController<ZadanieDto> {
         }
         zadanieDto.setDataUtworzenia(new SimpleDateFormat(ZadaniaMapper.DATE_FORMAT).format(new Date()));
         zadanieDto.setUkonczone(new Boolean(false));
-                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
         Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);

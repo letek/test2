@@ -1,29 +1,26 @@
 <!doctype html>
-<html xmlns:th="http://ww.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Aplikacja do zarządzania zadaniami, ToDo application">
+    <meta name="author" content="Tomasz Letki">
     <title>User panel</title>
+
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/menu.css">
+    <div th:insert="i_css.html :: div"></div>
 </head>
 
 <body>
 <!-- Header -->
-<header class="py-5 bg-dark">
-    <div class="container">
-        <h4 class="m-3 text-center text-white">Aplikacja TODO</h4>
-    </div>
-    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>
-    <!--    <form th:action="@{/logout}" method="post">-->
-    <!--        <button  class="m-3 btn-danger" style="float:right" type="submit" value="Wyloguj">Wyloguj</button>-->
-    <!--    </form>-->
-    <!-- /.container -->
-    <div th:insert="menu.html :: div"></div>
-</header>
-<!--<div th:insert="menu.html :: div"></div>-->
-<h1>User Panel</h1>
-</body>
+<div th:insert="i_header.html :: div"></div>
 
+<h1>User Panel</h1>
+
+<!-- Footer -->
+<div th:insert="i_footer.html :: div"></div>
+</body>
 
 </html>

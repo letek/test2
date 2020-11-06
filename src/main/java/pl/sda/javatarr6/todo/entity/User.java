@@ -74,12 +74,6 @@ public class User implements UserDetails {
         return null;
     }
 
-//    @Override
-//    public String getPassword() {
-//        return null;
-//    }
-
-
     @Override
     public String getPassword() {
         return password;

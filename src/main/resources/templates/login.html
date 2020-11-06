@@ -1,68 +1,46 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/login.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
-<!-- Header -->
-<header class="py-5 bg-dark">
-    <div class="container">
-        <h4 class="m-3 text-center text-white">Aplikacja TODO</h4>
-    </div>
-    <!--    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>-->
-    <h4 class="m-3 text-right text-white">Nie zalogowany</h4>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
-    <!--    <form th:action="@{/logout}" method="post">-->
-    <!--        <button  class="m-3 btn-danger" style="float:right" type="submit" value="Wyloguj">Wyloguj</button>-->
-    <!--    </form>-->
-    <!-- /.container -->
-    <!--    <div th:insert="menu.html :: div"></div>-->
-<!--    <div align="right">-->
-<!--        <a class="m-3 text-right text-white" href="/sign_up">Zarejestruj się</a>-->
-<!--    </div>-->
-    <div align="right">>
-        <button class="btn btn-danger" type="submit" onclick="location.href='sign_up'" value="Zarejestruj się">Zarejestruj się</button>
-    </div>
-</header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Aplikacja do zarządzania zadaniami, ToDo application">
+    <meta name="author" content="Tomasz Letki">
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <div th:insert="i_css.html :: div"></div>
+</head>
+
+<body>
+
+<!-- Header -->
+<div th:insert="i_header_nolog.html :: div"></div>
+
+
 <div class="container-fluid">
     <div class="col-sm-12 text-center">
         <form class="login-form" action="/login" method='POST'>
             <h1 class="login-element">Zaloguj się</h1>
             <div class="login-element">Adres email:</div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-<!--            <input class="login-element" type='text' name="username" value=''>-->
-<!--            <div class="login-element">Adres email:</div>-->
+
             <input class="login-element" type='text' name="foo" value=''>
             <div class="login-element">Hasło:</div>
             <input class="login-element" type='password' name="bar" value=''>
-
-<!--            <input class="login-element" name="submit" type="submit" value="Zaloguj">-->
-
-            <!--    <div class="">-->
-            <!--        <button class="m-3 btn-danger" type="submit" value="Zaloguj">Zaloguj</button>-->
-            <!--    </div>-->
+            <br>
+            <br>
             <div>
                 <button class="btn btn-danger" type="submit" value="Zaloguj">Zaloguj</button>
             </div>
 
-            <!--    <form action="addzadanie">-->
-            <!--        <button class="btn btn-danger" type="button" onclick="location.href='addzadanie';" value="Dodaj Zadanie">Dodaj Zadanie-->
-            <!--        </button>-->
-            <!--    </form>    -->
-            <!--    <a class="login-element" href="/sign_up">Nie masz konta? Zarejestruj się tutaj</a>-->
         </form>
     </div>
 </div>
+
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; TARR2019 Java6 Tomasz Letki</p>
-    </div>
-    <!-- /.container -->
-</footer>
+<div th:insert="i_footer.html :: div"></div>
 </body>
 
 

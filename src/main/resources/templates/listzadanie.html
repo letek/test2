@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
-      xmlns:padding="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Aplikacja do zarządzania zadaniami, ToDo application">
+    <meta name="author" content="Tomasz Letki">
     <title>Aplikacja TODO</title>
+
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/menu.css">
-<!--        <style>-->
-<!--            table, th, td {-->
-<!--                border: 1px solid black;-->
-<!--            }-->
-<!--        </style>-->
+    <div th:insert="i_css.html :: div"></div>
+
+    <!--        <style>-->
+    <!--            table, th, td {-->
+    <!--                border: 1px solid black;-->
+    <!--            }-->
+    <!--        </style>-->
+
 </head>
 <body>
 <!-- Header -->
-<header class="py-5 bg-dark">
-    <div class="container">
-        <h4 class="m-3 text-center text-white">Aplikacja TODO</h4>
-    </div>
-    <h4 class="m-3 text-right text-white" th:"text">Zalogowany jako: [[${#httpServletRequest.remoteUser}]]</h4>
-
-    <div th:insert="menu.html :: div"></div>
-</header>
-
+<div th:insert="i_header.html :: div"></div>
 <div class="row">
     <!--    Niezakonczone-->
     <div class="col" style="padding: 15px">
@@ -42,6 +35,7 @@
             </form>
 
             <br>
+
             <table>
                 <tr>
                     <th style="width:7%">Id</th>
@@ -58,7 +52,7 @@
                     <td th:text="${zadania.dataUtworzenia}"/>
 
                     <td>
-                        <a th:href="@{zmienopis(id=${zadania.id})}" class="btn btn-danger">Zm.Opis</a>
+                        <a th:href="@{zmienopis(id=${zadania.id})}" class="btn btn-danger">Zmień</a>
                     </td>
 
                     <td>
@@ -78,41 +72,36 @@
 
     <!--    Zakonczone-->
     <div class="col" style="padding: 10px">
-    <br>
-    <h3>&nbspZadania Wykonane</h3>
-    <div class="container mt-2">
+        <br>
+        <h3>&nbspZadania Wykonane</h3>
+        <div class="container mt-2">
 
-        <br><br>
-        <table>
-            <tr>
-                <th style="width:7%">Id</th>
-                <th style="width:51%">Opis</th>
-                <th style="width:21%">Data utworzenia</th>
-                <th style="width:21%">Data zamknięcia</th>
+            <br><br>
+            <table>
+                <tr>
+                    <th style="width:7%">Id</th>
+                    <th style="width:51%">Opis</th>
+                    <th style="width:21%">Data utworzenia</th>
+                    <th style="width:21%">Data zamknięcia</th>
 
-            </tr>
+                </tr>
 
-            <th>&nbsp</th>
-            <tr th:each="zadaniaZak : ${zadaniaZak}">
-                <td th:text="${zadaniaZak.id}"/>
-                <td th:text="${zadaniaZak.opis}"/>
-                <td th:text="${zadaniaZak.dataUtworzenia}"/>
-                <td th:text="${zadaniaZak.dataZamkniecia}"/>
+                <th>&nbsp</th>
+                <tr th:each="zadaniaZak : ${zadaniaZak}">
+                    <td th:text="${zadaniaZak.id}"/>
+                    <td th:text="${zadaniaZak.opis}"/>
+                    <td th:text="${zadaniaZak.dataUtworzenia}"/>
+                    <td th:text="${zadaniaZak.dataZamkniecia}"/>
 
-        </table>
+            </table>
+        </div>
+
     </div>
-
-</div>
 
 </div>
 
 <br>
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; TARR2019 Java6 Tomasz Letki</p>
-    </div>
-</footer>
-
+<div th:insert="i_footer.html :: div"></div>
 </body>
 </html>
