@@ -26,4 +26,9 @@ public class WebController {
         return mav;
     }
 
+    @RequestMapping(value="/", method=RequestMethod.GET)
+    public ModelAndView log(ModelAndView mav) {
+        mav.setViewName("login");
+        return mav;
+    }
 }
