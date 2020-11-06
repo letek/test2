@@ -34,29 +34,12 @@ public class ZadanieService  {
         return dtos;
     }
 
-
     public List<ZadanieDto> getAllCompletedByIdUser(boolean ukonczone, User id) {
-
-        System.out.println(ukonczone);
-        System.out.println(id);
 
         Iterable<ZadanieEntity> entities = zadanieRepository.getZadanieEntitiesByUkonczoneIsAndIdUser(ukonczone,id);
         List<ZadanieDto> dtos = ZadaniaMapper.mapZadanieEntitiesToDto(entities);
         return dtos;
     }
-
-//    @Override
-//    public List<Todo> getAllCompleted() {
-//        return todoRepository.getAllByCompletedAndUserId(true, getCurrentUser().getId());
-//    }
-
-
-//    public List<ZadanieDto> getAllByIdUser(User id) {
-//
-//        Iterable<ZadanieEntity> entities = zadanieRepository.getAllByIdUser(id);
-//        List<ZadanieDto> dtos = ZadaniaMapper.mapZadanieEntitiesToDto(entities);
-//        return dtos;
-//    }
 
 
     public ZadanieDto save(ZadanieDto zadanieDto) {

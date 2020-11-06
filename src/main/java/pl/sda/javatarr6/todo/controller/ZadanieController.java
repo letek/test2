@@ -51,16 +51,6 @@ public class ZadanieController<ZadanieDto> {
         return "redirect:listzadanie";
     }
 
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-
-    public String main(Model model) {
-
-        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAll();
-        long z = 1;
-        //List<pl.sda.javatarr6.demo.dto.ZadanieDto> zadania = zadanieService.getZadaniaById(z);
-        model.addAttribute("zadania", zadania);
-        return "main";
-    }
 
     @RequestMapping(value = "/listzadanie", method = RequestMethod.GET)
 
@@ -69,7 +59,6 @@ public class ZadanieController<ZadanieDto> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
-        //User aaa = new User(usernameOptional.get().getIdUser());
 
         //   List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
         List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllCompletedByIdUser(false, new User(usernameOptional.get().getIdUser()));
@@ -78,28 +67,6 @@ public class ZadanieController<ZadanieDto> {
         model.addAttribute("zadaniaZak", zadaniaZak);
         return "listzadanie";
     }
-    public String listzadanie_old(Model model) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
-        //User aaa = new User(usernameOptional.get().getIdUser());
-
-        //   List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
-        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllCompletedByIdUser(false, new User(usernameOptional.get().getIdUser()));
-        List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadaniaZak = zadanieService.getAllCompletedByIdUser(true, new User(usernameOptional.get().getIdUser()));
-        model.addAttribute("zadania", zadania);
-        model.addAttribute("zadaniaZak", zadaniaZak);
-        return "listzadanie_old";
-    }
-//    @RequestMapping(value = "/zadanieList", method = RequestMethod.GET)
-//    @ResponseBody
-//    public String zadanieList(Model model) {
-//
-//        List<pl.sda.javatarr6.demo.dto.ZadanieDto> zadania = zadanieService.getAll();
-//        model.addAttribute("zadanieList", zadania);
-//        return model.toString();
-//    }
 
     //dodanie zadania
     @RequestMapping(value = "/addzadanie", method = RequestMethod.GET)
@@ -113,10 +80,6 @@ public class ZadanieController<ZadanieDto> {
         if (bindingResult.hasErrors()) {
             return "addzadanie/{id}";
         }
-        //  zadanieDto.setOpis();
-        System.out.println();
-
-
         zadanieDto.setDataUtworzenia(new SimpleDateFormat(ZadaniaMapper.DATE_FORMAT).format(new Date()));
         zadanieDto.setUkonczone(new Boolean(false));
                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

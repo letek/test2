@@ -14,7 +14,7 @@ import pl.sda.javatarr6.todo.component.CustomDaoAuthenticationProvider;
 import pl.sda.javatarr6.todo.service.JpaUserDetailsService;
 
 @Configuration
-@EnableWebSecurity(debug=false)
+@EnableWebSecurity(debug = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     JpaUserDetailsService userDetailsService;
@@ -26,7 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(JpaUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
 
 
     @Override
@@ -44,10 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/sign_up").permitAll()
-                //.antMatchers("/admin_panel").hasAuthority("ADMIN")
-                //.antMatchers("/admin_panel").permitAll()
-                //.antMatchers("/user_panel").permitAll()
-                //.antMatchers("/listzadanie_old").permitAll()
 //                .antMatchers("/admin_panel").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -65,12 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
 }
