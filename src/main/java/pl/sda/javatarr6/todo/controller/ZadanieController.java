@@ -76,7 +76,16 @@ public class ZadanieController<ZadanieDto> {
     //dodanie zadania
     @RequestMapping(value = "/addzadanie", method = RequestMethod.GET)
     public String createZadanieGet(Model model) {
-        //model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+
+        String userTexta = usernameOptional.get().getText();
+        //model.addAttribute("zadanie", new ZadanieDto());
+        model.addAttribute("userTexta", userTexta);
+
         return "addzadanie";
     }
 
@@ -100,16 +109,24 @@ public class ZadanieController<ZadanieDto> {
 
     //zmiana opisu
     @RequestMapping(value = "/zmienopis", method = RequestMethod.GET)
-    //public String zmienQuiz(@RequestParam Long id, Model model) {
     public String zmienOpis(@RequestParam Long id, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+
+        String userTexta = usernameOptional.get().getText();
+
+        model.addAttribute("userTexta", userTexta);
+
         idPrzek = id;//dobrze byłoby może inaczej przekazać tązmienną
-        //ZadanieEntity entity1 = zadanieRepository.getById(id); totototot
+
         ZadanieEntity entity1 = zadanieRepository.getById(id);
         if (entity1.isUkonczone()) {
             System.out.println("Nie można bo zakoczone!");
             return "redirect:listzadanie";
         }
-        //model.addAttribute("zadanie", new pl.sda.javatarr6.demo.dto.ZadanieDto());
+
         return "zmienopis";
     }
 
