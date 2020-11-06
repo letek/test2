@@ -37,23 +37,11 @@ public class CustomDaoAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String name = authentication.getName();
         Object credentials = authentication.getCredentials();
-//        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-//        System.out.println("username: "+name.toString());
 
         Assert.notNull(name, USERNAME_CANNOT_BE_NULL);
         Assert.notNull(credentials, CREDENTIALS_CANNOT_BE_NULL);
 
-//powodowało błędne działanie
-//        if (credentials instanceof String) {
-//
-//            System.out.println("WESZLO  W credantials instanceof");
-//            //http
-//            return null;
-//        }
         String password = credentials.toString();
-//        System.out.println("hasło: "+password.toString());
-//        System.out.println("hasło zabcryptowane: "+passwordEncoder.encode(password).toString());
-//        System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(name);
 
