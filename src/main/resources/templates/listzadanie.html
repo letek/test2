@@ -47,17 +47,18 @@
                 </tr>
 
                 <th>&nbsp</th>
-                <tr th:each="zadania : ${zadania}">
-                    <td th:text="${zadania.id}"/>
-                    <td th:text="${zadania.opis}"/>
-                    <td th:text="${zadania.dataUtworzenia}"/>
+                <tr th:each="zadanie : ${zadania}">
+                    <td th:text="${zadanie.id}"/>
+                    <td th:text="${zadanie.opis}"/>
+                    <td th:text="${zadanie.dataUtworzenia}"/>
 
                     <td>
-                        <a th:href="@{zmienopis(id=${zadania.id})}" class="btn btn-danger">Zmień</a>
+<!--                        <a th:href="@{zmienopis(id=${zadania.id})}" class="btn btn-danger">Zmień</a>-->
+                        <a th:href="@{/zmienopis/{id}(id=${zadanie.id})}" class="btn btn-danger">Zmień</a>
                     </td>
 
                     <td>
-                        <a th:href="@{delzadanie(id=${zadania.id})}" class="btn btn-danger">Zakończ</a>
+                        <a th:href="@{delzadanie(id=${zadanie.id})}" class="btn btn-danger">Zakończ</a>
                     </td>
             </table>
             <br>

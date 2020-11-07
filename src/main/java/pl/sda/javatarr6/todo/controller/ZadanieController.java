@@ -24,8 +24,6 @@ import pl.sda.javatarr6.todo.repository.ZadanieRepository;
 @Controller
 public class ZadanieController<ZadanieDto> {
 
-    Long idPrzek;
-
     @Autowired
     private ZadanieService zadanieService;
 
@@ -55,20 +53,15 @@ public class ZadanieController<ZadanieDto> {
     @RequestMapping(value = "/listzadanie", method = RequestMethod.GET)
 
     public String listzadanie(Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-
         Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
 
-        String userTexta = usernameOptional.get().getText();
-
-        //   List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllByIdUser(new User(usernameOptional.get().getIdUser()));
         List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadania = zadanieService.getAllCompletedByIdUser(false, new User(usernameOptional.get().getIdUser()));
         List<pl.sda.javatarr6.todo.dto.ZadanieDto> zadaniaZak = zadanieService.getAllCompletedByIdUser(true, new User(usernameOptional.get().getIdUser()));
         model.addAttribute("zadania", zadania);
         model.addAttribute("zadaniaZak", zadaniaZak);
-        model.addAttribute("userTexta", userTexta);
+        model.addAttribute("userTexta", getUserText());
 
         return "listzadanie";
     }
@@ -77,14 +70,7 @@ public class ZadanieController<ZadanieDto> {
     @RequestMapping(value = "/addzadanie", method = RequestMethod.GET)
     public String createZadanieGet(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-
-        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
-
-        String userTexta = usernameOptional.get().getText();
-        //model.addAttribute("zadanie", new ZadanieDto());
-        model.addAttribute("userTexta", userTexta);
+        model.addAttribute("userTexta", getUserText());
 
         return "addzadanie";
     }
@@ -100,28 +86,24 @@ public class ZadanieController<ZadanieDto> {
         String currentPrincipalName = authentication.getName();
 
         Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
-        User aaa = new User(usernameOptional.get().getIdUser());
+        User getIdUser = new User(usernameOptional.get().getIdUser());
 
-        zadanieDto.setIdUser(aaa);
+        zadanieDto.setIdUser(getIdUser);
         zadanieService.save(zadanieDto);
         return "redirect:listzadanie";
     }
 
     //zmiana opisu
-    @RequestMapping(value = "/zmienopis", method = RequestMethod.GET)
-    public String zmienOpis(@RequestParam Long id, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+    @RequestMapping(value = "/zmienopis/{id}", method = RequestMethod.GET)
+    public String zmienOpis(@PathVariable("id") Long id, Model model) {
 
-        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
 
-        String userTexta = usernameOptional.get().getText();
+        model.addAttribute("userTexta", getUserText());
 
-        model.addAttribute("userTexta", userTexta);
-
-        idPrzek = id;//dobrze byłoby może inaczej przekazać tązmienną
 
         ZadanieEntity entity1 = zadanieRepository.getById(id);
+        pl.sda.javatarr6.todo.dto.ZadanieDto zadanieDto = ZadaniaMapper.mapZadanieEntitiesToDto(entity1);
+        model.addAttribute("ZadanieEntity", zadanieDto);
         if (entity1.isUkonczone()) {
             System.out.println("Nie można bo zakoczone!");
             return "redirect:listzadanie";
@@ -130,16 +112,25 @@ public class ZadanieController<ZadanieDto> {
         return "zmienopis";
     }
 
-
     @RequestMapping(value = "/zmienopis", method = RequestMethod.POST)
-    public String zmienOpis(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.todo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
+    //public String zmienOpis(@ModelAttribute("zadanie") @Validated pl.sda.javatarr6.todo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
+    public String zmienOpis(@ModelAttribute("ZadanieEntity") @Validated pl.sda.javatarr6.todo.dto.ZadanieDto zadanieDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             return "zmienopis";
         }
 
-        zadanieService.zmienpiszadanieEntity(idPrzek, zadanieDto.getOpis());
+        zadanieService.zmienpiszadanieEntity(zadanieDto.getId(), zadanieDto.getOpis());
         return "redirect:listzadanie";
+    }
+
+    public String getUserText() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Optional<User> usernameOptional = userRepository.findByUsername(currentPrincipalName);
+        String userTexta = usernameOptional.get().getText();
+        return userTexta;
+
     }
 
 }

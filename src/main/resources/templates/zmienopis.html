@@ -21,26 +21,16 @@
 
     <form role="form" th:object="${ZadanieEntity}" th:action="@{/zmienopis}" method="post">
 
-        <!--        <div>-->
-        <!--            <input type="text" name="ukonczone" id="ukonczone" placeholder="Ukonczone" />-->
-        <!--        </div>-->
-
         <div>
-            <!--        <input type="text" name="id" id="id" placeholder="Id"/>-->
-            <input type="text" name="opis" id="opis" placeholder="Opis zadania"/>
-            <!--        <input type="date" name="datautworzenia" id="datautworzenia" placeholder="Data utworzenia"/>-->
-            <!--        <input type="date" name="datazamkniecia" id="datazamkniecia" placeholder="Data zamkniecia"/>-->
-            <!--        <input type="text" name="ukonczone" id="ukonczone" placeholder="ukonczone"/>-->
+            <input type="hidden" th:value="${ZadanieEntity.id}" name="id"/>
+
+            <input type="text" th:value="${ZadanieEntity.opis}" name="opis" id="opis" placeholder="Opis zadania"/>
+
         </div>
         <br>
-        <!--    <input type="submit" value="Zapisz"/>-->
-        <!--    <form action="listzadanie">-->
-        <!--        <input type="button" onclick="location.href='/listzadanie';" value="Anuluj"/>-->
-        <!--    </form>-->
 
         <button class="btn btn-danger" type="submit" value="Zapisz">Zapisz</button>
-        <!--        <input type="submit" value="Zapisz"/>        -->
-        <!--    <a href="listzadanie">Anuluj</a>-->
+
         <form action="listzadanie">
             <button class="btn btn-danger" type="button" onclick="location.href='/listzadanie';" value="Anuluj">Anuluj
             </button>
